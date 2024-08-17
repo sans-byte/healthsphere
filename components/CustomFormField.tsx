@@ -11,7 +11,7 @@ import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { Input } from "@/components/ui/input";
 import { Control } from "react-hook-form";
-import { formFieldType } from "./forms/PatientForm";
+import { FormFieldType } from "./forms/PatientForm";
 import Image from "next/image";
 
 interface customFormProps {
@@ -38,9 +38,9 @@ const RenderField = ({
 }) => {
   const { fieldType, placeholder, iconAlt, iconSrc, name } = props;
   switch (props.fieldType) {
-    case formFieldType.INPUT:
+    case FormFieldType.INPUT:
       return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400 px-1 py-0">
+        <div className="flex rounded-md border border-dark-500 bg-dark-400 py-0">
           {iconSrc && (
             <Image
               src={iconSrc}
@@ -59,25 +59,21 @@ const RenderField = ({
           </FormControl>
         </div>
       );
-      break;
-    case formFieldType.PHONE_INPUT:
+    case FormFieldType.PHONE_INPUT:
       return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400 px-1 py-1 w-full">
+        <div className="flex rounded-md border border-dark-500 bg-dark-400 w-full h-8 ps-2">
           <FormControl>
             <PhoneInput
               value={field.value}
-              onChange={() => field.onChange}
+              onChange={field.onChange}
               international
               countryCallingCodeEditable={false}
               defaultCountry="IN"
-              className="w-full"
+              className="w-full h-full"
             />
           </FormControl>
         </div>
       );
-
-      break;
-
     default:
       break;
   }
@@ -91,7 +87,7 @@ const CustomFormField = (props: customFormProps) => {
       name={name}
       render={({ field }) => (
         <FormItem className="flex-1">
-          {fieldType !== formFieldType.CHECKBOX && label && (
+          {fieldType !== FormFieldType.CHECKBOX && label && (
             <FormLabel>{label}</FormLabel>
           )}
 

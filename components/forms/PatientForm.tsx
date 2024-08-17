@@ -1,16 +1,20 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form } from "../ui/form";
+
+import { Form } from "@/components/ui/form";
+import { createUser } from "@/lib/actions/patients.actions";
+import { UserFormValidation } from "@/lib/validation";
+
+import "react-phone-number-input/style.css";
 import CustomFormField from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
-import { useState } from "react";
-import { UserFromValidation } from "@/lib/validation";
-import { useRouter } from "next/navigation";
 
-export enum formFieldType {
+export enum FormFieldType {
   INPUT = "input",
   TEXTAREA = "textarea",
   CHECKBOX = "checkbox",
@@ -24,8 +28,8 @@ export function PatientForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof UserFromValidation>>({
-    resolver: zodResolver(UserFromValidation),
+  const form = useForm<z.infer<typeof UserFormValidation>>({
+    resolver: zodResolver(UserFormValidation),
     defaultValues: {
       name: "",
       email: "",
@@ -33,20 +37,22 @@ export function PatientForm() {
     },
   });
 
-  function onSubmit({
+  async function onSubmit({
     name,
     email,
     phone,
-  }: z.infer<typeof UserFromValidation>) {
+  }: z.infer<typeof UserFormValidation>) {
     try {
       setIsLoading(true);
       const userData = { name, email, phone };
-      // const user = await createUser(userData);
-      // router.push(`/patients/${user.$id}/register`);
+      const user = await createUser(userData);
+      router.push(`/patients/${user?.$id}/register`);
       console.log(userData);
+      console.log(user);
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   }
 
   return (
@@ -61,7 +67,7 @@ export function PatientForm() {
         </section>
         <CustomFormField
           control={form.control}
-          fieldType={formFieldType.INPUT}
+          fieldType={FormFieldType.INPUT}
           name={"name"}
           iconSrc="/assets/icons/user.svg"
           placeholder="John Doe"
@@ -69,7 +75,7 @@ export function PatientForm() {
         />
         <CustomFormField
           control={form.control}
-          fieldType={formFieldType.INPUT}
+          fieldType={FormFieldType.INPUT}
           name={"email"}
           iconSrc="/assets/icons/email.svg"
           placeholder="johndoe@gmail.com"
@@ -77,15 +83,15 @@ export function PatientForm() {
         />
         <CustomFormField
           control={form.control}
-          fieldType={formFieldType.PHONE_INPUT}
+          fieldType={FormFieldType.PHONE_INPUT}
           name={"phone"}
           iconSrc="/assets/icons/phone.svg"
           placeholder="0000000000"
           label="Phone"
         />
-        <SubmitButton isLoading={isLoading}> Get Started</SubmitButton>
+        {/* <button type="submit">submit the form</button> */}
+        <SubmitButton isLoading={isLoading}> Get Started </SubmitButton>
       </form>
     </Form>
   );
 }
-export default PatientForm;
