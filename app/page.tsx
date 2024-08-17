@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="flex h-screen max-h-screen">
       <section className="container my-auto remove-scrollbar h-full">
-        <div className="sub-container max-w-[496px] ">
+        <div className="sub-container max-w-[496px] flex justify-center items-center">
           <Image
             src={"/assets/logos/logofull.svg"}
             alt="Logo"
@@ -15,7 +15,7 @@ export default function Home() {
             className="mb-8 h-10 w-fit"
           ></Image>
           <PatientForm />
-          <div className="text-14-regular justify-between flex items-end">
+          <div className="text-12-regular flex justify-between w-full">
             <p className=" text-gray-600 xl:text-left">
               © 2024 HealthSphere. All rights reserved.
             </p>

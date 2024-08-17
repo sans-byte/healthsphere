@@ -7,6 +7,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 import { Input } from "@/components/ui/input";
 import { Control } from "react-hook-form";
 import { formFieldType } from "./forms/PatientForm";
@@ -57,6 +59,22 @@ const RenderField = ({
           </FormControl>
         </div>
       );
+      break;
+    case formFieldType.PHONE_INPUT:
+      return (
+        <div className="flex rounded-md border border-dark-500 bg-dark-400 px-1 py-1 w-full">
+          <FormControl>
+            <PhoneInput
+              value={field.value}
+              onChange={() => field.onChange}
+              international
+              countryCallingCodeEditable={false}
+              defaultCountry="IN"
+              className="w-full"
+            />
+          </FormControl>
+        </div>
+      );
 
       break;
 
@@ -70,7 +88,7 @@ const CustomFormField = (props: customFormProps) => {
   return (
     <FormField
       control={control}
-      name="username"
+      name={name}
       render={({ field }) => (
         <FormItem className="flex-1">
           {fieldType !== formFieldType.CHECKBOX && label && (

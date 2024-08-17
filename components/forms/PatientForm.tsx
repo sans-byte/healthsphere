@@ -3,16 +3,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import { Form } from "../ui/form";
-import { toast } from "@/components/ui/use-toast";
 import CustomFormField from "../CustomFormField";
-
-const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
+import SubmitButton from "../SubmitButton";
+import { useState } from "react";
+import { UserFromValidation } from "@/lib/validation";
+import { useRouter } from "next/navigation";
 
 export enum formFieldType {
   INPUT = "input",
@@ -25,22 +21,32 @@ export enum formFieldType {
 }
 
 export function PatientForm() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const form = useForm<z.infer<typeof UserFromValidation>>({
+    resolver: zodResolver(UserFromValidation),
     defaultValues: {
-      username: "",
+      name: "",
+      email: "",
+      phone: "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  function onSubmit({
+    name,
+    email,
+    phone,
+  }: z.infer<typeof UserFromValidation>) {
+    try {
+      setIsLoading(true);
+      const userData = { name, email, phone };
+      // const user = await createUser(userData);
+      // router.push(`/patients/${user.$id}/register`);
+      console.log(userData);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -77,8 +83,7 @@ export function PatientForm() {
           placeholder="0000000000"
           label="Phone"
         />
-
-        <Button type="submit" className="bg-dark-400">Submit</Button>
+        <SubmitButton isLoading={isLoading}> Get Started</SubmitButton>
       </form>
     </Form>
   );
