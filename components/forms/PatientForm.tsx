@@ -85,8 +85,6 @@ export function PatientForm() {
           control={form.control}
           fieldType={FormFieldType.PHONE_INPUT}
           name={"phone"}
-          iconSrc="/assets/icons/phone.svg"
-          placeholder="0000000000"
           label="Phone"
         />
         {/* <button type="submit">submit the form</button> */}
