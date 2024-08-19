@@ -100,7 +100,7 @@ const RenderField = ({
       );
     case FormFieldType.DATE_PICKER:
       return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400 h-8 ">
+        <div className="flex rounded-md border border-dark-500 bg-dark-400 h-8">
           {iconSrc && (
             <Image
               src={iconSrc}
@@ -115,7 +115,7 @@ const RenderField = ({
               className="pt-[2px]"
               selected={field.value}
               onChange={(date) => field.onChange(date)}
-              showDateSelect={showTimeSelect ?? false}
+              showTimeSelect={showTimeSelect ?? false}
               dateFormat={dateFormat ?? "MM/dd/yyyy"}
               timeInputLabel="Time:"
             />
