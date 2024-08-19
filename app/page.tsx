@@ -1,8 +1,11 @@
 import { PatientForm } from "@/components/forms/PatientForm";
+import PasskeyModel from "@/components/PasskeyModel";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default function Home({ searchParams, params }: SearchParamProps) {
+  const admin = searchParams.admin as string;
+
   return (
     <div className="flex h-screen max-h-screen">
       <section className="container my-auto remove-scrollbar h-full">
@@ -32,6 +35,7 @@ export default function Home() {
         width={1000}
         className="side-img max-w-[50%]"
       ></Image>
+      {admin === "true" && <PasskeyModel />}
     </div>
   );
 }
