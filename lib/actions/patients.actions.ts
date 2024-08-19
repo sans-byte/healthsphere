@@ -57,7 +57,6 @@ export const registerPatient = async ({
   ...patient
 }: RegisterUserParams) => {
   try {
-    console.log("1 here");
     // Upload file ->  // https://appwrite.io/docs/references/cloud/client-web/storage#createFile
     let file;
     if (identificationDocument) {
@@ -94,13 +93,13 @@ export const registerPatient = async ({
 
 // GET PATIENT
 export const getPatient = async (userId: string) => {
+  console.log(userId, "**************");
   try {
     const patients = await databases.listDocuments(
       DATABASE_ID!,
       PATIENTS_COLLECTION_ID!,
       [Query.equal("userId", [userId])]
     );
-
     return parseStringify(patients.documents[0]);
   } catch (error) {
     console.error(
