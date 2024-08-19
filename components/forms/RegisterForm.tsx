@@ -80,7 +80,7 @@ export function RegisterForm({ user }: any) {
       >
         <section className="mb-12 space-y-4">
           <h1 className="sub-header">Welcome</h1>
-          <p className="text-gray-500"> Let's know bit more about you</p>
+          <p className="text-gray-500"> Let&apos;s know bit more about you</p>
         </section>
         <section className="space-y-6">
           <div className="mb-9 space-y-1">
@@ -168,7 +168,7 @@ export function RegisterForm({ user }: any) {
             control={form.control}
             fieldType={FormFieldType.INPUT}
             name={"emergencyContactName"}
-            placeholder="Guardian's Name"
+            placeholder="Guardian&apos;s Name"
             label="Emergency Contact Name"
           />
           <CustomFormField
