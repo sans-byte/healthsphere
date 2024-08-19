@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { string, z } from "zod";
+import { z } from "zod";
 
 import { Form, FormControl } from "@/components/ui/form";
 import { registerPatient } from "@/lib/actions/patients.actions";
@@ -26,7 +26,7 @@ import { SelectItem } from "../ui/select";
 import Image from "next/image";
 import FileUploader from "../FileUploader";
 
-export function RegisterForm({ user }) {
+export function RegisterForm({ user }: any) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 

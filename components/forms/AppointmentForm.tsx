@@ -27,8 +27,8 @@ type appointmentFormProps = {
   type: "create" | "cancel" | "schedule";
   userId: string;
   patientId: string;
-  appointment: Appointment;
-  setOpen: (value: boolean) => void;
+  appointment?: Appointment;
+  setOpen?: (value: boolean) => void;
 };
 
 export function AppointmentForm({
@@ -95,7 +95,7 @@ export function AppointmentForm({
       } else {
         const appointmentToUpdate = {
           userId,
-          appointmentId: appointment.$id!,
+          appointmentId: appointment?.$id!,
           appointment: {
             primaryPhysician: values?.primaryPhysician,
             schedule: new Date(values?.schedule),
